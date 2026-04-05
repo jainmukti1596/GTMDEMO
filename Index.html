@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GTM Practice Site</title>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5SJVR6C6');</script>
+  <!-- End Google Tag Manager -->
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0f14;
+      --surface: #161a23;
+      --border: #252b38;
+      --accent: #f0c040;
+      --accent2: #4af0b0;
+      --text: #e8eaf0;
+      --muted: #7a8099;
+      --danger: #f05a5a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(13,15,20,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 6rem 2.5rem 5rem;
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .tag-badge {
+      display: inline-block;
+      background: rgba(240,192,64,0.12);
+      color: var(--accent);
+      border: 1px solid rgba(240,192,64,0.3);
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      padding: 0.75rem 1.8rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0f14;
+    }
+    .btn-primary:hover { background: #f5d060; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover { border-color: var(--muted); }
+
+    /* ── SECTION WRAPPER ── */
+    section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2.5rem;
+    }
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.6rem;
+    }
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ── CARDS ── */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .card-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .card p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+
+    /* ── FORM ── */
+    .form-section { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+    label { font-size: 0.82rem; color: var(--muted); }
+    input, select, textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 100px; }
+    select option { background: var(--surface); }
+
+    /* ── PRODUCTS ── */
+    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .product-card:hover { transform: translateY(-3px); border-color: var(--accent2); }
+    .product-thumb {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--border);
+    }
+    .product-info { padding: 1rem; }
+    .product-info h4 { font-size: 0.95rem; margin-bottom: 0.3rem; }
+    .product-price { color: var(--accent); font-weight: 600; font-size: 1rem; margin-bottom: 0.75rem; }
+    .btn-add {
+      width: 100%;
+      padding: 0.55rem;
+      background: rgba(74,240,176,0.1);
+      border: 1px solid rgba(74,240,176,0.25);
+      color: var(--accent2);
+      border-radius: 7px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s;
+    }
+    .btn-add:hover { background: rgba(74,240,176,0.2); }
+
+    /* ── DATALAYER CONSOLE ── */
+    .dl-console {
+      background: #0a0c10;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+    }
+    .dl-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .dl-title { color: var(--accent2); font-weight: 600; font-size: 0.85rem; }
+    .btn-clear {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .btn-clear:hover { border-color: var(--danger); color: var(--danger); }
+    #dl-output {
+      max-height: 260px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .dl-entry {
+      background: var(--surface);
+      border-left: 3px solid var(--accent2);
+      padding: 0.6rem 0.8rem;
+      border-radius: 0 6px 6px 0;
+      animation: slideIn 0.3s ease;
+    }
+    .dl-entry .ev-name { color: var(--accent); font-weight: 600; }
+    .dl-entry .ev-data { color: var(--muted); margin-top: 0.2rem; }
+    .dl-empty { color: var(--muted); font-style: italic; font-family: 'DM Sans', sans-serif; }
+    @keyframes slideIn { from { opacity:0; transform: translateX(-8px); } to { opacity:1; transform: translateX(0); } }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    footer span { color: var(--accent); }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5SJVR6C6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- NAV -->
+<nav>
+  <div class="logo">🏷 GTM Lab</div>
+  <ul class="nav-links">
+    <li><a href="#events">Events</a></li>
+    <li><a href="#form">Form</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#console">DataLayer</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag-badge">Google Tag Manager Practice Site</div>
+  <h1>Learn GTM by<br/><span>doing, not reading</span></h1>
+  <p>Click buttons, fill forms, add products — and watch real dataLayer events fire. Everything here is wired up so you can practice tags, triggers, and variables.</p>
+  <div class="hero-btns">
+    <button class="btn btn-primary" onclick="pushEvent('cta_click', { button: 'Get Started', location: 'hero' })">Get Started</button>
+    <button class="btn btn-outline" onclick="pushEvent('cta_click', { button: 'View Docs', location: 'hero' })">View Docs</button>
+  </div>
+</div>
+
+<!-- CUSTOM EVENTS -->
+<section id="events">
+  <div class="section-label">Triggers</div>
+  <h2>Custom Event Buttons</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🖱️</div>
+      <h3>Click Event</h3>
+      <p>Fires a <code>button_click</code> event. Practice setting up a Custom Event trigger in GTM.</p>
+      <br/>
+      <button class="btn btn-outline" style="width:100%" onclick="pushEvent('button_click', { label: 'Click Me', category: 'engagement' })">Fire Click Event</button>
+    </div>
+    <div class="card">
+      <div class="card-icon">📄</div>
+      <h3>Page View</h3>
+      <p>Manually pushes a <code>virtual_page_view</code> — useful for SPA page tracking practice.</p>
+      <br/>
+      <button class="btn btn-outline" style="width:100%" onclick="pushEvent('virtual_page_view', { page_path: '/about', page_title: 'About Page' })">Simulate Page View</button>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔐</div>
+      <h3>Login Event</h3>
+      <p>Fires a <code>login</code> event with a method variable. Test user-scoped variables.</p>
+      <br/>
+      <button class="btn btn-outline" style="width:100%" onclick="pushEvent('login', { method: 'Google', user_id: 'usr_12345' })">Simulate Login</button>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔍</div>
+      <h3>Search Event</h3>
+      <p>Pushes a <code>search</code> event with a search term. Practice capturing search queries.</p>
+      <br/>
+      <button class="btn btn-outline" style="width:100%" onclick="pushEvent('search', { search_term: 'google tag manager tutorial' })">Simulate Search</button>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section id="form">
+  <div class="section-label">Form Tracking</div>
+  <h2>Lead Form</h2>
+  <div class="form-section">
+    <div class="form-row">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" id="fname" placeholder="Ada" />
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" id="lname" placeholder="Lovelace" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="ada@example.com" />
+      </div>
+      <div class="form-group">
+        <label>Interest</label>
+        <select id="interest">
+          <option value="">Select one…</option>
+          <option value="analytics">Analytics</option>
+          <option value="ads">Paid Ads</option>
+          <option value="seo">SEO</option>
+          <option value="gtm">Google Tag Manager</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Message</label>
+      <textarea id="message" placeholder="Tell us what you're working on…"></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="handleFormSubmit()">Submit Form →</button>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-label">Ecommerce</div>
+  <h2>Product Listing</h2>
+  <div class="products">
+    <div class="product-card">
+      <div class="product-thumb">📦</div>
+      <div class="product-info">
+        <h4>GTM Starter Kit</h4>
+        <div class="product-price">₹999</div>
+        <button class="btn-add" onclick="addToCart('GTM Starter Kit', 'SKU-001', 999)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb">📊</div>
+      <div class="product-info">
+        <h4>Analytics Bundle</h4>
+        <div class="product-price">₹1,999</div>
+        <button class="btn-add" onclick="addToCart('Analytics Bundle', 'SKU-002', 1999)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb">🎯</div>
+      <div class="product-info">
+        <h4>Ads Tracking Pro</h4>
+        <div class="product-price">₹2,499</div>
+        <button class="btn-add" onclick="addToCart('Ads Tracking Pro', 'SKU-003', 2499)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb">🚀</div>
+      <div class="product-info">
+        <h4>Full GTM Course</h4>
+        <div class="product-price">₹4,999</div>
+        <button class="btn-add" onclick="addToCart('Full GTM Course', 'SKU-004', 4999)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATALAYER CONSOLE -->
+<section id="console">
+  <div class="section-label">Debug</div>
+  <h2>dataLayer Console</h2>
+  <div class="dl-console">
+    <div class="dl-header">
+      <span class="dl-title">▶ Live dataLayer Events</span>
+      <button class="btn-clear" onclick="clearConsole()">Clear</button>
+    </div>
+    <div id="dl-output">
+      <div class="dl-empty">No events yet — interact with the page above ↑</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built for learning <span>Google Tag Manager</span> — swap in your real GTM container ID to see tags fire!
+</footer>
+
+<script>
+  // Initialize dataLayer
+  window.dataLayer = window.dataLayer || [];
+
+  function pushEvent(eventName, params = {}) {
+    const payload = { event: eventName, ...params };
+    window.dataLayer.push(payload);
+    logToConsole(eventName, params);
+  }
+
+  function logToConsole(eventName, params) {
+    const output = document.getElementById('dl-output');
+    // Remove empty state
+    const empty = output.querySelector('.dl-empty');
+    if (empty) empty.remove();
+
+    const entry = document.createElement('div');
+    entry.className = 'dl-entry';
+    const paramStr = Object.entries(params).map(([k, v]) => `${k}: "${v}"`).join(' | ');
+    entry.innerHTML = `
+      <div class="ev-name">event: "${eventName}"</div>
+      ${paramStr ? `<div class="ev-data">${paramStr}</div>` : ''}
+    `;
+    output.prepend(entry);
+  }
+
+  function clearConsole() {
+    const output = document.getElementById('dl-output');
+    output.innerHTML = '<div class="dl-empty">No events yet — interact with the page above ↑</div>';
+  }
+
+  function handleFormSubmit() {
+    const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const interest = document.getElementById('interest').value;
+
+    if (!fname || !email) {
+      alert('Please fill in at least your name and email.');
+      return;
+    }
+
+    pushEvent('form_submit', {
+      form_id: 'lead_form',
+      form_name: 'Lead Form',
+      user_name: fname,
+      user_email: email,
+      interest: interest || 'not_selected'
+    });
+  }
+
+  function addToCart(name, sku, price) {
+    pushEvent('add_to_cart', {
+      item_name: name,
+      item_id: sku,
+      price: price,
+      currency: 'INR',
+      quantity: 1
+    });
+  }
+</script>
+</body>
+</html>
